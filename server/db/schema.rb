@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_02_140520) do
+ActiveRecord::Schema.define(version: 2022_10_03_224624) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 2022_10_02_140520) do
 
   create_table "reviews", force: :cascade do |t|
     t.string "body"
-    t.string "name"
     t.integer "book_id"
     t.float "rating"
     t.datetime "created_at", precision: 6, null: false
