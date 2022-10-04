@@ -8,7 +8,6 @@ export default function BookList() {
     fetch("http://localhost:9292/books")
       .then(r => r.json())
       .then(data => setBooks(data))
-      // .then(data => data.map(book => console.log(book.title)))
   }, [])
 
   const bookElements = books.map(book => {
