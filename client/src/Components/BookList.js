@@ -7,13 +7,14 @@ export default function BookList() {
   useEffect(() => {
     fetch("http://localhost:9292/books")
       .then(r => r.json())
-      .then(data => console.log(data))
+      .then(data => setBooks(data))
+      // .then(data => data.map(book => console.log(book.title)))
   }, [])
 
   const bookElements = books.map(book => {
     return (
-      <div className="book-element">
-        <Book key={book.id} book={book} />
+      <div>
+        <Book key={book.id} book={book}/>
       </div>
     )
   })
