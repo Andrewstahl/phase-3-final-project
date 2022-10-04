@@ -5,7 +5,7 @@ class ApplicationController < Sinatra::Base
   # Get Requests
   get "/books" do
     books = Book.all
-    books.to_json
+    books.to_json(include: {author: {only: [:name]} })
   end
   
   get "/books/:id" do
@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
   
   get "/reviews" do
     reviews = Review.all
-    reviews.to_json
+    reviews.to_json(include: {book: {only: [:title, :image_url]} })
   end
   
   get "/reviews/:id" do
