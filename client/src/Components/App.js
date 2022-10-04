@@ -2,6 +2,12 @@ import  '../../src/App.css';
 import  '../../src/index.css';
 import React, { useEffect, useState } from 'react';
 import {Route, Routes, useNavigate } from 'react-router-dom';
+import Header from './Header';
+import NavBar from './NavBar';
+import Home from './Home';
+import BookList from './BookList';
+import AuthorList from './AuthorList';
+import ReviewList from './ReviewList';
 
 /**
  * App Hierarchy
@@ -25,22 +31,20 @@ import {Route, Routes, useNavigate } from 'react-router-dom';
  */
 
 function App() {
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/books" element={<BookList />} />
+        <Route exact path="/reviews" element={<ReviewList />} />
+        <Route exact path="/authors" element={<AuthorList />} />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
+      </Routes>
+    </>
   );
 }
 
