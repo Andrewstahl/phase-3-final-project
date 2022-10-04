@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
   
   get "/authors" do
     authors = Author.all
-    authors.to_json
+    authors.to_json(include: {books: {only: [:title, :image_url]} })
   end
   
   get "/authors/:id" do
