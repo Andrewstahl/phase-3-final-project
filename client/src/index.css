@@ -89,11 +89,9 @@ div.home-page-div {
   text-align: center;
 }
 
-.review-on-book-details {
-  /* display: inline-block; */
-  /* width: 60%; */
+.review-on-book-details, .author-details {
+  text-align: center;
   margin: 20px 100px;
   border-top: 1px solid grey;
-  /* border-bottom: 1px solid grey; */
 }
 
