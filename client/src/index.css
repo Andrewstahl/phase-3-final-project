@@ -99,3 +99,13 @@ div.home-page-div {
   border-top: 1px solid grey;
 }
 
+.add-new-div {
+  text-align: center;
+  margin: 20px;
+}
+
+.add-new-button {
+  /* color: */
+  height: 50px;
+  font-size: large;
+}
