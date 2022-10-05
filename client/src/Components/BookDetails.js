@@ -24,7 +24,7 @@ export default function BookDetails() {
   } else if (book === "Not Found") {
     return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
   }
-  console.log(book)
+  
   const bookElement = <Book key={book.id} book={book}/>
   const reviewElements = book.reviews.map(review => {
     return (
