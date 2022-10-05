@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Book from "./Book";
 
-export default function BookList() {
+export default function Books() {
   const [books, setBooks] = useState([])
 
   useEffect(() => {
