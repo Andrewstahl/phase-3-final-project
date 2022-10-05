@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Book from "./Book";
 import ActionButtons from "./ActionButtons";
 
-export default function BookDetails() {
+export default function Books() {
   const [book, setBook] = useState()
   const params = useParams();
   
