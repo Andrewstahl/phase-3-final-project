@@ -29,9 +29,6 @@ export default function Reviews() {
   
   return (
     <>
-      <div className="add-new-div">
-          <button className="add-new-button">Add New Review</button>
-        </div>
       <div>
         {reviewElements}
       </div>
