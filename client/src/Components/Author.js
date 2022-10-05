@@ -3,11 +3,11 @@ import React from "react";
 export default function Author({ author }) {
   const {id, name, books} = author
   return (
-    <div>
+    <div className="author-details">
       <h3>{name}</h3>
       {books.map(book => {
         return (
-          <span className="book-span">{book.title}</span>
+          <p className="book-span">{book.title}</p>
         )
       })}
     </div>
