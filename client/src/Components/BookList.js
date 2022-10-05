@@ -13,7 +13,7 @@ export default function BookList() {
   const bookElements = books.map(book => {
     return (
       <div>
-        <Book key={book.id} book={book}/>
+        <Book key={book.id} book={book} author={book.author}/>
       </div>
     )
   })
