@@ -1,4 +1,5 @@
 import React from "react";
+import ActionButtons from "./ActionButtons";
 
 export default function Author({ author }) {
   const {id, name, books} = author
@@ -10,6 +11,7 @@ export default function Author({ author }) {
           <p className="book-span">{book.title}</p>
         )
       })}
+      <ActionButtons />
     </div>
   )
 }
