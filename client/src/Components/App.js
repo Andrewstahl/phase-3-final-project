@@ -6,6 +6,7 @@ import Header from './Header';
 import NavBar from './NavBar';
 import Home from './Home';
 import BookList from './BookList';
+import BookDetails from './BookDetails';
 import AuthorList from './AuthorList';
 import ReviewList from './ReviewList';
 
@@ -39,9 +40,10 @@ function App() {
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/books" element={<BookList />} />
-        <Route exact path="/reviews" element={<ReviewList />} />
-        <Route exact path="/authors" element={<AuthorList />} />
+        <Route exact path="/books/" element={<BookList />} />
+        <Route exact path="/books/:id" element={<BookDetails />} />
+        <Route exact path="/reviews/" element={<ReviewList />} />
+        <Route exact path="/authors/" element={<AuthorList />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </>
