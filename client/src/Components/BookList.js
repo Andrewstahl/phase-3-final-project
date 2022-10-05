@@ -19,7 +19,7 @@ export default function BookList() {
   })
   
   return (
-    <div>
+    <div className="book-list-elements-div">
       {bookElements}
     </div>
   )
