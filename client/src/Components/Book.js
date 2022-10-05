@@ -6,7 +6,7 @@ export default function Book({ book, author, onUpdate, onDelete }) {
   // const [bookDetails, setBookDetails] = useState()
   const navigate = useNavigate();
 
-  function handleClick() {
+  function handleClickBookReviews() {
     navigate(`/books/${id}`)
   }
 
@@ -16,7 +16,7 @@ export default function Book({ book, author, onUpdate, onDelete }) {
         alt={`${title} book cover`} 
         src={image_url} 
         className="book-card-image" 
-        onClick={handleClick}
+        onClick={handleClickBookReviews}
       >
       </img>
       
@@ -39,7 +39,7 @@ export default function Book({ book, author, onUpdate, onDelete }) {
         </div>
       </div>
       <div className="card-action-buttons">
-        <button className="card-action-button">Reviews</button>
+        <button className="card-action-button" onClick={handleClickBookReviews}>Reviews</button>
         <button className="card-action-button">Edit</button>
         <button className="card-action-button">Delete</button>
       </div>
