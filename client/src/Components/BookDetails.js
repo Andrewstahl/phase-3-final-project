@@ -37,14 +37,15 @@ export default function BooksDetails() {
     )
   })
 
-  // return (
-  //   <h3>Book Data Goes Here</h3>
-  // )
-  
   return (
-    <div className="book-list-elements-div">
-      {bookElement}
-      {reviewElements}
-    </div>
+    <>
+      <div className="add-new-div">
+        <button className="add-new-button">Add New Review</button>
+      </div>
+      <div className="book-list-elements-div">
+        {bookElement}
+        {reviewElements}
+      </div>
+    </>
   )
 }
