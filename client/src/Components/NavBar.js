@@ -9,7 +9,7 @@ const linkStyles = {
   padding: ".5em",
   fontSize: "15px",
   textDecoration: "none",
-  color: "#171785",
+  color: "rgb(184, 77, 77)",
   fontWeight: "bold",
   textAlign: "center",
   alignItems: "center"
