@@ -6,7 +6,7 @@ export default function Review({ review }) {
   return (
     <div className="review">
       <h4>{book.title}</h4>
-      <span>{rating}</span>
+      <span>Rating: {rating}</span>
       <p>{body}</p>
     </div>
   )
