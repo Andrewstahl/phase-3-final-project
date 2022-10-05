@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Book from "./Book";
+import ActionButtons from "./ActionButtons";
 
 export default function BookDetails() {
   const [book, setBook] = useState()
@@ -31,10 +32,7 @@ export default function BookDetails() {
       <div className="review-on-book-details">
         <h4>Rating: {review.rating}</h4>
         <p>{review.body}</p>
-        <div className="card-action-buttons">
-          <button className="card-action-button">Edit</button>
-          <button className="card-action-button">Delete</button>
-        </div>
+        <ActionButtons />
       </div>
     )
   })
