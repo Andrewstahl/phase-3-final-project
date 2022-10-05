@@ -2,12 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const linkStyles = {
-  display: "stretch",
-  alignContent: "center",
+  // display: "stretch",
+  // alignContent: "center",
   width: "100%",
-  height: "20%",
-  padding: "1em",
-  fontSize: "20px",
+  height: "10%",
+  padding: ".5em",
+  fontSize: "15px",
   textDecoration: "none",
   color: "#171785",
   fontWeight: "bold",
