@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Book from "./Book";
+import NewBook from "./NewBook";
 
 export default function Books() {
   const [books, setBooks] = useState([])
@@ -19,8 +20,14 @@ export default function Books() {
   })
   
   return (
-    <div className="book-list-elements-div">
-      {bookElements}
-    </div>
+    <>
+      {/* <NewBook /> */}
+      <div className="add-new-div">
+        <button className="add-new-button">Add New Book</button>
+      </div>
+      <div className="book-list-elements-div">
+        {bookElements}
+      </div>
+    </>
   )
 }
