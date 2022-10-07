@@ -18,6 +18,7 @@ import ReviewList from './ReviewList';
  * ├─── NavBar
  * ├─── Books
  *      ├─── Book
+ *           └─── Book Details
  *      ├─── Book
  *      └─── Book
  * ├─── Reviews
