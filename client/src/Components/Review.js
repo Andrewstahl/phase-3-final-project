@@ -1,7 +1,7 @@
 import React from "react";
 import ActionButtons from './ActionButtons'
 
-export default function Review({ review, handleEdit, onDelete }) {
+export default function Review({ review, onEdit, onDelete }) {
   const {id, body, rating, book} = review
 
   function handleEdit() {
@@ -9,15 +9,16 @@ export default function Review({ review, handleEdit, onDelete }) {
   }
   
   function handleDelete() {
-    fetch(`http://localhost:9292/reviews/${id}`, {
-      method: "DELETE", 
-      headers: {
-        "CONTENT-TYPE": "application/json"
-      },
-      body: JSON.stringify({})
-    })
-      .then(r => r.json())
-      .then(data => onDelete(data))
+    console.log("I'm being deleted", id)
+    // fetch(`http://localhost:9292/reviews/${id}`, {
+    //   method: "DELETE", 
+    //   headers: {
+    //     "CONTENT-TYPE": "application/json"
+    //   },
+    //   body: JSON.stringify({})
+    // })
+    //   .then(r => r.json())
+    //   .then(data => onDelete(data))
   }
 
   return (
