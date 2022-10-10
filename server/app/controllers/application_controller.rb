@@ -43,7 +43,15 @@ class ApplicationController < Sinatra::Base
   
   get "/reviews/:id" do
     review = Review.find(params[:id])
-    review.to_json
+    review.to_json(
+      include: {
+        book: {
+          only: [
+            :title, :id
+          ]
+        }
+      }
+    )
   end
   
   get "/authors" do
