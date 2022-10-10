@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function NewReview({ onSubmit }) {
+export default function AddEditReview({ onSubmit }) {
   const params = useParams();
   const [rating, setRating] = useState(0.0)
   const [textarea, setTextarea] = useState("")
