@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
 export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCancel }) {
-  const params = useParams();
   const [bookData, setBookData] = useState(() => {
     if (currentBook !== undefined)  {
       return ({
@@ -49,9 +47,15 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
   function handleSubmit(e) {
     e.preventDefault();
     const genresSplit = bookData.genres.replace(", ", ",").split(",")
-    
-    console.log(fetchMethod, genresSplit)
-    fetch(`http://localhost:9292/books/${params.id}`, {
+    console.log(bookData)
+    let fetchUrl;
+    if (currentBook !== undefined) {
+      fetchUrl = `http://localhost:9292/books/${currentBook.id}`
+    } else {
+      fetchUrl = `http://localhost:9292/books`
+    }
+
+    fetch(fetchUrl, {
       method: fetchMethod,
       headers: {
         "CONTENT-TYPE": "application/json"
@@ -61,14 +65,6 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
     .then(r => r.json())
     .then(data => onSubmit(data))
     
-    setBookData({
-      title: "",
-      author: "",
-      read_status: "Unread",
-      finished_date: null,
-      image_url: "",
-      genres: ""
-    })
   }
   
   return (
