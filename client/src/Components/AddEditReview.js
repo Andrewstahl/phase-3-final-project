@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function AddEditReview({ currentReview, currentBook, fetchMethod, onSubmit, onCancel }) {
-  const [reviewRating, setRating] = useState(() => {
+  const [rating, setRating] = useState(() => {
     return currentReview !== undefined ? currentReview.rating : 0.0
   })
   const [textarea, setTextarea] = useState(() => {
@@ -36,7 +36,7 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
       body: JSON.stringify({
         book_title: currentBook.title || currentReview.book.title,
         body: textarea,
-        rating: reviewRating
+        rating: rating
       })
     })
     .then(r => r.json())
@@ -55,7 +55,7 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
           step="0.1"
           min="0"
           max="5"
-          value={reviewRating}
+          value={rating}
           onChange={(e) => handleChange(e)}
           required
         />
