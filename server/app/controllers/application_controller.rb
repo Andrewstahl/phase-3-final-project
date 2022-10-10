@@ -5,12 +5,35 @@ class ApplicationController < Sinatra::Base
   # Get Requests
   get "/books" do
     books = Book.all
-    books.to_json(include: {author: {only: [:name]} })
+    books.to_json(
+      include: {
+        author: {
+          only: [
+            :name
+          ]
+        }
+      }
+    )
   end
   
   get "/books/:id" do
     book = Book.find(params[:id])
-    book.to_json(include: {reviews: {only: [:body, :rating]} })
+    book.to_json(
+      # include: {
+      #   author: {
+      #     only: [
+      #       :name
+      #     ]
+      #   }
+      # }
+      include: {
+        reviews: {
+          only: [
+            :body, :rating
+          ]
+        }
+      }
+    )
   end
   
   get "/reviews" do
@@ -37,11 +60,14 @@ class ApplicationController < Sinatra::Base
   post '/books' do
     new_book = Book.create(
       title: params[:title],
-      genres: params[:genres],
+      genres: [],
       author: Author.find_or_create_by(name: params[:author]),
       read_status: params[:read_status],
-      finished_date: params[:genres],
+      finished_date: params[:finished_date],
       image_url: params[:image_url],
+    )
+    new_book.update(
+      genres: params[:genres] || []
     )
     new_book.to_json
   end
@@ -64,11 +90,12 @@ class ApplicationController < Sinatra::Base
   patch '/books/:id' do
     book = Book.find(params[:id])
     book.update(
-      title: params[:title],
-      read_status: params[:read_status],
-      finished_date: params[:finished_date],
-      image_url: params[:image_url], 
-      genres: params[:genres]
+      title: params[:title] || book.title,
+      read_status: params[:read_status] || book.read_status,
+      finished_date: params[:finished_date] || book.finished_date,
+      image_url: params[:image_url] || book.image_url, 
+      genres: params[:genres] || book.genres,
+      author: Author.find_or_create_by(name: params[:author])
     )
     book.to_json
   end
