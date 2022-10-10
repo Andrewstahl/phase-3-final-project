@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function AddEditReview({ currentReview, onSubmit }) {
+export default function AddEditReview({ currentReview, fetchMethod, onSubmit }) {
   const params = useParams();
   const [rating, setRating] = useState(() => {
     return currentReview !== undefined ? currentReview.rating : 0.0
@@ -44,10 +44,9 @@ export default function AddEditReview({ currentReview, onSubmit }) {
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="body">Review Body</label>
-        <textarea id="body" name="body" value={textarea} rows="5" onChange={(e) => handleChange(e)}/>
+        <textarea id="body" name="body" value={textarea} rows="20" onChange={(e) => handleChange(e)}/>
         <input type="submit" value="submit" />
       </form>
     </div>
   )
-
 }

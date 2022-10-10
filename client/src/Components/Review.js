@@ -30,10 +30,10 @@ export default function Review({ review, book, onEdit, onDelete }) {
       <span className="review-rating">Rating: {rating}</span>
       <p>{body}</p>
       <div className="card-action-buttons">
-        <button className="card-action-button" onClick={handleEdit}>
+        <button className="card-action-button" onClick={() => onEdit(review)}>
           Edit
         </button>
-        <button className="card-action-button" onClick={handleDelete}
+        <button className="card-action-button" onClick={() => onDelete(review)}
         >
           Delete
         </button>
