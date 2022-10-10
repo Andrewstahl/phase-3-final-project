@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function AddEditReview({ onSubmit }) {
+export default function AddEditReview({ currentReview, onSubmit }) {
   const params = useParams();
-  const [rating, setRating] = useState(0.0)
-  const [textarea, setTextarea] = useState("")
+  const [rating, setRating] = useState(() => {
+    return currentReview !== undefined ? currentReview.rating : 0.0
+  })
+  const [textarea, setTextarea] = useState(() => {
+    return currentReview !== undefined ? currentReview.body : ""
+  })
 
   function handleChange(e) {
     const name = e.target.name;
-    // The rating comes over as a string
     if (name === "rating") {
       setRating(parseFloat(e.target.value))
     }
