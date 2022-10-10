@@ -80,7 +80,7 @@ export default function BooksDetails() {
         null
       }
       {showEditBook ?
-        <AddEditBook />
+        <AddEditBook currentBook={book} />
         :
         null
       }

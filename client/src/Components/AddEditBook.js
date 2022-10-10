@@ -1,23 +1,36 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function AddEditBook({ onSubmit }) {
+export default function AddEditBook({ currentBook, onSubmit }) {
   const params = useParams();
-  const [newBook, setNewBook] = useState({
-    title: "",
-    author: "",
-    read_status: "Unread",
-    finished_date: null,
-    imageUrl: "",
-    genres: ""
+  const [bookData, setBookData] = useState(() => {
+    if (currentBook !== undefined)  {
+      return ({
+        title: currentBook.title,
+        author: "",
+        read_status: currentBook.read_status.toLowerCase(),
+        finished_date: currentBook.finished_date,
+        image_url: currentBook.image_url,
+        genres: currentBook.genres.join(",")
+      })
+    } else {
+      return ({
+        title: "",
+        author: "",
+        read_status: "Unread",
+        finished_date: null,
+        image_url: "",
+        genres: ""
+      })
+    }
   })
   
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
     
-    setNewBook({
-      ...newBook,
+    setBookData({
+      ...bookData,
       [name]: value
     })
     
@@ -25,15 +38,15 @@ export default function AddEditBook({ onSubmit }) {
 
   function handleSelect(e) {
     e.preventDefault();
-    setNewBook({
-      ...newBook,
+    setBookData({
+      ...bookData,
       read_status: e.target.options[e.target.selectedIndex].text
     })
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(newBook)
+    console.log(bookData)
   }
 
   return (
@@ -44,7 +57,7 @@ export default function AddEditBook({ onSubmit }) {
           type="text"
           name="title"
           id="title"
-          value={newBook.title}
+          value={bookData.title}
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="author">Author</label>
@@ -52,15 +65,15 @@ export default function AddEditBook({ onSubmit }) {
           type="text"
           name="author"
           id="author"
-          value={newBook.author}
+          value={bookData.author}
           onChange={(e) => handleChange(e)}
         />
-        <label htmlFor="read-status">Read Status</label>
-        <select name="read-status" id="read-status" onChange={(e) => handleSelect(e)}>
+        <label htmlFor="read_status">Read Status</label>
+        <select name="read_status" id="read_status" value={bookData.read_status} onChange={(e) => handleSelect(e)}>
           <option value="unread">Unread</option>
           <option value="read">Read</option>
         </select>
-        {newBook.read_status === "Read"
+        {bookData.read_status === "Read"
           ? (
             <>
               <label htmlFor="finished_date">Finished Date</label>
@@ -68,6 +81,7 @@ export default function AddEditBook({ onSubmit }) {
                 type="date"
                 name="finished_date"
                 id="finished_date"
+                value={bookData.finished_date}
                 max={new Date().toJSON().slice(0, 10)}
                 onChange={(e) => handleChange(e)}
               />
@@ -75,12 +89,12 @@ export default function AddEditBook({ onSubmit }) {
           )
           : null
         }
-        <label htmlFor="imageUrl">Image URL</label>
+        <label htmlFor="image_url">Image URL</label>
         <input
           type="text"
-          name="imageUrl"
-          id="imageUrl"
-          value={newBook.imageUrl}
+          name="image_url"
+          id="image_url"
+          value={bookData.image_url}
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="genres">Genres (separate by commas)</label>
@@ -88,7 +102,7 @@ export default function AddEditBook({ onSubmit }) {
           type="text"
           name="genres"
           id="genres"
-          value={newBook.genres}
+          value={bookData.genres}
           onChange={(e) => handleChange(e)}
         />
         <input type="submit" value="Submit" />
