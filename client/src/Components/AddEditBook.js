@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useParams, redirect } from "react-router-dom";
-// import { useHistory } from "react-router"
+import { useParams } from "react-router-dom";
 
-export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
+export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCancel }) {
   const params = useParams();
   const [bookData, setBookData] = useState(() => {
     if (currentBook !== undefined)  {
@@ -128,7 +127,10 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
           value={bookData.genres}
           onChange={(e) => handleChange(e)}
         />
-        <input type="submit" value="Submit" />
+        <div className="form-action-buttons">
+          <input type="submit" value="Submit" />
+          <button className="cancel" onClick={onCancel}>Cancel</button>
+        </div>
       </form>
     </div>
   )
