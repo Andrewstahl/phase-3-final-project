@@ -69,8 +69,6 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
       image_url: "",
       genres: ""
     })
-
-    // redirect("/books/1")
   }
 
   return (
