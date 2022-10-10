@@ -7,7 +7,7 @@ const linkStyles = {
   width: "100%",
   height: "10%",
   padding: ".5em",
-  fontSize: "15px",
+  fontSize: "20px",
   textDecoration: "none",
   color: "rgb(184, 77, 77)",
   fontWeight: "bold",
