@@ -7,6 +7,9 @@ import AddEditBook from "./AddEditBook";
 
 export default function BooksDetails( onDelete ) {
   const [book, setBook] = useState()
+  const [bookReviews, setBookReviews] = useState()
+  const [currentReview, SetCurrentReview] = useState();
+  const [fetchMethod, setFetchMethod] = useState();
   const [showNewReview, setShowNewReview] = useState(false)
   const [showEditBook, setShowEditBook] = useState(false)
   const params = useParams();
@@ -21,16 +24,44 @@ export default function BooksDetails( onDelete ) {
         throw Error(`Request rejected with status ${r.status}`)
       }
     })
-    .then(data => setBook(data))
+    .then(data => {
+      setBook(data)
+      setBookReviews(data.reviews)
+    })
   }, [params.id])
 
-  function handleEditReview(editedReview) {
-    console.log("Book Details - I've Been Edited", editedReview)
+  function handleEditReviewClick(editedReview) {
+    SetCurrentReview(editedReview)
+    setFetchMethod("PATCH")
+    ToggleEditReview()
+  }
+  
+  function handleEditReviewSubmit(editedReview) {
+    // console.log(fetchMethod)
+    if (fetchMethod === "PATCH") {
+      const updatedReviews = bookReviews.map(review => {
+        if (review.id == editedReview.id) {
+          return editedReview
+        } else {
+          return review
+        }
+      })
+      setBookReviews(updatedReviews)
+    } else {
+      setBookReviews([...bookReviews, editedReview])
+    }
+    setShowNewReview(false)
   }
   
   function handleDeleteReview(deletedReview) {
     console.log("Book Details - I've Been Deleted", deletedReview.id)
   }
+  
+  function handleEditBookClick(editedBook) {
+    setShowEditBook(false)
+    setShowNewReview(false)
+    setBook(editedBook)
+  } 
 
   function handleDeleteBook() {
     fetch(`http://localhost:9292/books/${params.id}`, {
@@ -45,11 +76,6 @@ export default function BooksDetails( onDelete ) {
     redirect("/books")
   }
 
-  function handleEditBook(editedBook) {
-    setShowEditBook(false)
-    setShowNewReview(false)
-    setBook(editedBook)
-  } 
 
   if (book == null) {
     return <h3>Loading Book Details...</h3>
@@ -58,15 +84,21 @@ export default function BooksDetails( onDelete ) {
   }
   
   const bookElement = <Book key={book.id} book={book} author={book.author}/>
-  const reviewElements = book.reviews.map(review => {
-      return <Review review={review} />
+  
+  // book.reviews.map(review => console.log(review))
+  // (book.reviews)
+  const reviewElements = bookReviews.map(review => {
+      return <Review review={review} onEdit={() => handleEditReviewClick(review)} onDelete={() => handleDeleteReview(review)}/>
     }
   )
   
-
-  function ToggleAddReview() {
+  function ToggleEditReview(reviewOption) {
     setShowNewReview(!showNewReview)
     setShowEditBook(false)
+    if (reviewOption === "new") {
+      SetCurrentReview()
+      setFetchMethod("POST")
+    }
   }
 
   function ToggleEditBook() {
@@ -77,17 +109,28 @@ export default function BooksDetails( onDelete ) {
   return (
     <>
       {showNewReview ?
-        <AddEditReview currentReview={undefined} fetchMethod={"POST"} />
+        <AddEditReview 
+          currentReview={currentReview}
+          currentBook={book}
+          fetchMethod={fetchMethod} 
+          onSubmit={handleEditReviewSubmit}
+          onCancel={() => setShowNewReview(false)}
+        />
         :
         null
       }
       {showEditBook ?
-        <AddEditBook currentBook={book} fetchMethod={"PATCH"} onSubmit={handleEditBook} />
+        <AddEditBook 
+          currentBook={book} 
+          fetchMethod={"PATCH"} 
+          onSubmit={() => handleEditBookClick} 
+          onCancel={() => setShowEditBook(false)}
+        />
         :
         null
       }
       <div className="add-new-div">
-        <button className="add-new-button" onClick={() => ToggleAddReview()}>Add New Review</button>
+        <button className="add-new-button" onClick={() => ToggleEditReview("new")}>Add New Review</button>
         <button className="add-new-button" onClick={() => ToggleEditBook()}>Edit Book Details</button>
         <button className="add-new-button" onClick={() => handleDeleteBook()}>Delete Book</button>
       </div>

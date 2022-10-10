@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function AddEditReview({ currentReview, fetchMethod, onSubmit, onCancel }) {
+export default function AddEditReview({ currentReview, currentBook, fetchMethod, onSubmit, onCancel }) {
   const [rating, setRating] = useState(() => {
     return currentReview !== undefined ? currentReview.rating : 0.0
   })
@@ -20,12 +20,21 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit, on
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:9292/reviews/${currentReview.id}`, {
+    let fetchUrl;
+    if (currentReview !== undefined) {
+      fetchUrl = `http://localhost:9292/reviews/${currentReview.id}`
+    } else {
+      fetchUrl = `http://localhost:9292/reviews`
+    }
+    // console.log(currentBook.title)
+    // console.log(fetchUrl, fetchMethod, {book_title: currentBook.title, body: textarea, rating: rating})
+    fetch(fetchUrl, {
       method: fetchMethod,
       headers: {
         "CONTENT-TYPE": "application/json"
       },
       body: JSON.stringify({
+        book_title: currentBook.title,
         body: textarea,
         rating: rating
       })
@@ -33,8 +42,8 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit, on
     .then(r => r.json())
     .then(data => onSubmit(data))
 
-    setRating(0.0)
-    setTextarea("")
+    // setRating(0.0)
+    // setTextarea("")
   }
 
   return (
@@ -50,9 +59,10 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit, on
           max="5"
           value={rating}
           onChange={(e) => handleChange(e)}
+          required
         />
         <label htmlFor="body">Review Body</label>
-        <textarea id="body" name="body" value={textarea} rows="20" onChange={(e) => handleChange(e)}/>
+        <textarea id="body" name="body" value={textarea} rows="20" onChange={(e) => handleChange(e)} required/>
         <div className="form-action-buttons">
           <input type="submit" value="Submit" />
           <button className="cancel" onClick={onCancel}>Cancel</button>
