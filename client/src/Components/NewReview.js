@@ -27,19 +27,21 @@ export default function NewReview({ onSubmit }) {
   }
 
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="rating">Review Rating</label>
         <input
           type="number"
           name="rating"
           id="rating"
-          step="0.01"
+          step="0.5"
+          min="0"
+          max="5"
           value={rating}
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="body">Review Body</label>
-        <textarea id="body" name="body" value={textarea} onChange={(e) => handleChange(e)}/>
+        <textarea id="body" name="body" value={textarea} rows="5" onChange={(e) => handleChange(e)}/>
         <input type="submit" value="submit" />
       </form>
     </div>
