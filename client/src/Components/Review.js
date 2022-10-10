@@ -1,10 +1,10 @@
 import React from "react";
-import ActionButtons from './ActionButtons'
 
 export default function Review({ review, book, onEdit, onDelete }) {
   const {id, body, rating} = review
 
   function handleEdit() {
+    console.log("Review.js I'm being edited", id)
     
   }
   
@@ -29,7 +29,15 @@ export default function Review({ review, book, onEdit, onDelete }) {
       }
       <span className="review-rating">Rating: {rating}</span>
       <p>{body}</p>
-      <ActionButtons onEdit={handleEdit} onDelete={handleDelete}/>
+      <div className="card-action-buttons">
+        <button className="card-action-button" onClick={handleEdit}>
+          Edit
+        </button>
+        <button className="card-action-button" onClick={handleDelete}
+        >
+          Delete
+        </button>
+      </div>
     </div>
 
   )

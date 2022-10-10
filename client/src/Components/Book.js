@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ActionButtons from "./ActionButtons";
 
 export default function Book({ book, author }) {
   const {id, title, read_status, finished_date, image_url, genres} = book;
