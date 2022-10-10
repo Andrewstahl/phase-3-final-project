@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, redirect } from "react-router-dom";
 import Book from "./Book";
+import Review from "./Review";
 import AddEditReview from "./AddEditReview";
 import AddEditBook from "./AddEditBook";
 
@@ -47,8 +48,7 @@ export default function BooksDetails( onDelete ) {
   function handleEditBook(editedBook) {
     setShowEditBook(false)
     setShowNewReview(false)
-    console.log("Book has been Edited")
-    // setBook(editedBook)
+    setBook(editedBook)
   } 
 
   if (book == null) {
@@ -59,28 +59,10 @@ export default function BooksDetails( onDelete ) {
   
   const bookElement = <Book key={book.id} book={book} author={book.author}/>
   const reviewElements = book.reviews.map(review => {
-    const reviewId = review.id;
-    return (
-      <div className="review-on-book-details">
-        <h4>Rating: {review.rating}</h4>
-        <p>{review.body}</p>
-        <div className="card-action-buttons">
-          <button 
-            className="card-action-button"
-            onClick={() => handleEditReview(reviewId)}
-            >
-            Edit
-          </button>
-          <button 
-            className="card-action-button"
-            onClick={() => handleDeleteReview(review)}
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    )
-  })
+      return <Review review={review} />
+    }
+  )
+  
 
   function ToggleAddReview() {
     setShowNewReview(!showNewReview)
