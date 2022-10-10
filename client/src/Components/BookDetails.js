@@ -77,7 +77,7 @@ export default function BooksDetails( onDelete ) {
   return (
     <>
       {showNewReview ?
-        <AddEditReview />
+        <AddEditReview currentReview={undefined} fetchMethod={"POST"} />
         :
         null
       }
