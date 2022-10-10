@@ -24,6 +24,13 @@ h1 {
 
 span {
   display: inline-block;
+  margin: 15px 0px 0px;
+  font-style: italic;
+}
+
+.review-book-title {
+  margin-bottom: 0px;
+  font-size: larger;
 }
 
 h2.home-page-header {
