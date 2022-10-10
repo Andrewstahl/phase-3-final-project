@@ -37,7 +37,6 @@ export default function BooksDetails( onDelete ) {
   }
   
   function handleEditReviewSubmit(editedReview) {
-    // console.log(fetchMethod)
     if (fetchMethod === "PATCH") {
       const updatedReviews = bookReviews.map(review => {
         if (review.id == editedReview.id) {
@@ -54,7 +53,17 @@ export default function BooksDetails( onDelete ) {
   }
   
   function handleDeleteReview(deletedReview) {
-    console.log("Book Details - I've Been Deleted", deletedReview.id)
+    fetch(`http://localhost:9292/reviews/${deletedReview.id}`, {
+      method: "DELETE",
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      }
+    })
+    .then(r => r.json())
+    .then(data => console.log(data))
+
+    const updatedReviews = bookReviews.filter(review => review.id !== deletedReview.id)
+    setBookReviews(updatedReviews)
   }
   
   function handleEditBookClick(editedBook) {
@@ -71,26 +80,16 @@ export default function BooksDetails( onDelete ) {
       }
     })
     .then(r => r.json())
-    .then(data => console.log(data))
+    .then(data => null)
 
     redirect("/books")
   }
-
 
   if (book == null) {
     return <h3>Loading Book Details...</h3>
   } else if (book === "Not Found") {
     return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
   }
-  
-  const bookElement = <Book key={book.id} book={book} author={book.author}/>
-  
-  // book.reviews.map(review => console.log(review))
-  // (book.reviews)
-  const reviewElements = bookReviews.map(review => {
-      return <Review review={review} onEdit={() => handleEditReviewClick(review)} onDelete={() => handleDeleteReview(review)}/>
-    }
-  )
   
   function ToggleEditReview(reviewOption) {
     setShowNewReview(!showNewReview)
@@ -106,6 +105,13 @@ export default function BooksDetails( onDelete ) {
     setShowEditBook(!showEditBook)
   }
 
+  const bookElement = <Book key={book.id} book={book} author={book.author}/>
+  
+  const reviewElements = bookReviews.map(review => {
+      return <Review review={review} onEdit={() => handleEditReviewClick(review)} onDelete={() => handleDeleteReview(review)}/>
+    }
+  )
+  
   return (
     <>
       {showNewReview ?
@@ -123,7 +129,7 @@ export default function BooksDetails( onDelete ) {
         <AddEditBook 
           currentBook={book} 
           fetchMethod={"PATCH"} 
-          onSubmit={() => handleEditBookClick} 
+          onSubmit={handleEditBookClick} 
           onCancel={() => setShowEditBook(false)}
         />
         :
