@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActionButtons from "./ActionButtons";
 
-export default function Book({ book, author, onUpdate, onDelete }) {
+export default function Book({ book, author }) {
   const {id, title, read_status, finished_date, image_url, genres} = book;
   const navigate = useNavigate();
 
-  function handleClickBookReviews() {
+  function handleShowBookDetails() {
     navigate(`/books/${id}`)
   }
 
@@ -16,7 +16,7 @@ export default function Book({ book, author, onUpdate, onDelete }) {
         alt={`${title} book cover`} 
         src={image_url} 
         className="book-card-image" 
-        onClick={handleClickBookReviews}
+        onClick={handleShowBookDetails}
       >
       </img>
       
@@ -38,7 +38,6 @@ export default function Book({ book, author, onUpdate, onDelete }) {
           })}
         </div>
       </div>
-      {/* <ActionButtons onEdit={() => console.log("Book - Edited")} onDelete={() => console.log("Book - Deleted")}/> */}
     </div>
   )
 }
