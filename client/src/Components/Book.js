@@ -29,7 +29,10 @@ export default function Book({ book, author }) {
             null
         }
         <p>Read Status: {read_status}</p>
-        <p>Finished Reading: {finished_date}</p>
+        {finished_date !== null 
+          ? <p>Finished Reading: {finished_date}</p>
+          : null
+        }
         <div className="book-card-genres-div">
           {genres.map(genre => {
             return (
