@@ -4,7 +4,6 @@ import ActionButtons from "./ActionButtons";
 
 export default function Book({ book, author, onUpdate, onDelete }) {
   const {id, title, read_status, finished_date, image_url, genres} = book;
-  // const [bookDetails, setBookDetails] = useState()
   const navigate = useNavigate();
 
   function handleClickBookReviews() {
