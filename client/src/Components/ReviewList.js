@@ -18,17 +18,17 @@ export default function Reviews() {
     setShowEditReview(!showEditReview)
   }
   
-  // function handleEdit(editedReview) {
-  //   // console.log("ReviewList.js I've Been Edited", editedReview.id)
-  //   const updatedReviews = reviews.map(review => {
-  //     if (review.id == editedReview.id) {
-  //       return editedReview
-  //     } else {
-  //       return review
-  //     }
-  //   })
-  //   setReviews(updatedReviews)
-  // }
+  function handleEditSubmit(editedReview) {
+    // console.log("ReviewList.js I've Been Edited", editedReview.id)
+    const updatedReviews = reviews.map(review => {
+      if (review.id == editedReview.id) {
+        return editedReview
+      } else {
+        return review
+      }
+    })
+    setReviews(updatedReviews)
+  }
   
   function handleDelete(deletedReview) {
     // console.log("ReviewList.js I've Been Deleted", deletedReview.id)
