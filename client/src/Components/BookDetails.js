@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, redirect } from "react-router-dom";
 import Book from "./Book";
 import AddEditReview from "./AddEditReview";
 import AddEditBook from "./AddEditBook";
 
-export default function BooksDetails() {
+export default function BooksDetails( onDelete ) {
   const [book, setBook] = useState()
   const [showNewReview, setShowNewReview] = useState(false)
   const [showEditBook, setShowEditBook] = useState(false)
   const params = useParams();
-  
+
   useEffect(() => {
     fetch(`http://localhost:9292/books/${params.id}`)
     .then(r => {
@@ -31,13 +31,33 @@ export default function BooksDetails() {
     console.log("Book Details - I've Been Deleted", deletedReview.id)
   }
 
+  function handleDeleteBook() {
+    fetch(`http://localhost:9292/books/${params.id}`, {
+      method: "DELETE",
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      }
+    })
+    .then(r => r.json())
+    .then(data => console.log(data))
+
+    redirect("/books")
+  }
+
+  function handleEditBook(editedBook) {
+    setShowEditBook(false)
+    setShowNewReview(false)
+    console.log("Book has been Edited")
+    // setBook(editedBook)
+  } 
+
   if (book == null) {
     return <h3>Loading Book Details...</h3>
   } else if (book === "Not Found") {
     return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
   }
   
-  const bookElement = <Book key={book.id} book={book}/>
+  const bookElement = <Book key={book.id} book={book} author={book.author}/>
   const reviewElements = book.reviews.map(review => {
     const reviewId = review.id;
     return (
@@ -62,12 +82,12 @@ export default function BooksDetails() {
     )
   })
 
-  function AddReview() {
+  function ToggleAddReview() {
     setShowNewReview(!showNewReview)
     setShowEditBook(false)
   }
 
-  function EditBook() {
+  function ToggleEditBook() {
     setShowNewReview(false)
     setShowEditBook(!showEditBook)
   }
@@ -80,14 +100,14 @@ export default function BooksDetails() {
         null
       }
       {showEditBook ?
-        <AddEditBook currentBook={book} />
+        <AddEditBook currentBook={book} fetchMethod={"PATCH"} onSubmit={handleEditBook} />
         :
         null
       }
       <div className="add-new-div">
-        <button className="add-new-button" onClick={() => AddReview()}>Add New Review</button>
-        <button className="add-new-button" onClick={() => EditBook()}>Edit Book Details</button>
-        <button className="add-new-button" onClick={() => console.log("Book Details - Delete Book")}>Delete Book</button>
+        <button className="add-new-button" onClick={() => ToggleAddReview()}>Add New Review</button>
+        <button className="add-new-button" onClick={() => ToggleEditBook()}>Edit Book Details</button>
+        <button className="add-new-button" onClick={() => handleDeleteBook()}>Delete Book</button>
       </div>
       <div className="book-list-elements-div">
         {bookElement}
