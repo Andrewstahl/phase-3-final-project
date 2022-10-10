@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddEditReview from "./AddEditReview";
 import Review from "./Review";
 
-export default function Reviews() {
+export default function ReviewList() {
   const [reviews, setReviews] = useState([])
   const [currentReview, setCurrentReview] = useState()
   const [showEditReview, setShowEditReview] = useState(false)
@@ -15,19 +15,21 @@ export default function Reviews() {
 
   function handleEditClick(review) {
     setCurrentReview(review)
+    console.log(review)
     setShowEditReview(!showEditReview)
   }
   
   function handleEditSubmit(editedReview) {
-    const updatedReviews = reviews.map(review => {
-      if (review.id === editedReview.id) {
-        return editedReview
-      } else {
-        return review
-      }
-    })
-    setReviews(updatedReviews)
-    setShowEditReview(false)
+    console.log(editedReview)
+    // const updatedReviews = reviews.map(review => {
+    //   if (review.id === editedReview.id) {
+    //     return editedReview
+    //   } else {
+    //     return review
+    //   }
+    // })
+    // setReviews(updatedReviews)
+    // setShowEditReview(false)
   }
   
   function handleDelete(deletedReview) {
@@ -52,7 +54,8 @@ export default function Reviews() {
     <>
       {showEditReview ?
         <AddEditReview 
-          currentReview={currentReview} 
+          currentReview={currentReview}
+          currentBook={currentReview.book}
           fetchMethod={"PATCH"} 
           onSubmit={handleEditSubmit}
           onCancel={() => setShowEditReview(!showEditReview)} 
