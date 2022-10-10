@@ -29,7 +29,7 @@ class ApplicationController < Sinatra::Base
       include: {
         reviews: {
           only: [
-            :body, :rating
+            :id, :body, :rating
           ]
         }
       }
