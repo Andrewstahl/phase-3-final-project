@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, redirect } from "react-router-dom";
+// import { useHistory } from "react-router"
 
-export default function AddEditBook({ currentBook, onSubmit }) {
+export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
   const params = useParams();
+  // console.log(author)
   const [bookData, setBookData] = useState(() => {
     if (currentBook !== undefined)  {
       return ({
@@ -46,7 +48,29 @@ export default function AddEditBook({ currentBook, onSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(bookData)
+    const genresSplit = bookData.genres.replace(", ", ",").split(",")
+    
+    console.log(fetchMethod, genresSplit)
+    fetch(`http://localhost:9292/books/${params.id}`, {
+      method: fetchMethod,
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      },
+      body: JSON.stringify({...bookData, genres: genresSplit})
+    })
+      .then(r => r.json())
+      .then(data => onSubmit(data))
+
+    setBookData({
+      title: "",
+      author: "",
+      read_status: "Unread",
+      finished_date: null,
+      image_url: "",
+      genres: ""
+    })
+
+    // redirect("/books/1")
   }
 
   return (
