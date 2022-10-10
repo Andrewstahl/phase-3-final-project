@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
-export default function AddEditReview({ currentReview, fetchMethod, onSubmit }) {
-  const params = useParams();
+export default function AddEditReview({ currentReview, fetchMethod, onSubmit, onCancel }) {
   const [rating, setRating] = useState(() => {
     return currentReview !== undefined ? currentReview.rating : 0.0
   })
@@ -22,11 +20,21 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit }) 
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("AddEditReview", {
-      book_id: parseInt(params.id),
-      body: textarea,
-      rating: rating
+    fetch(`http://localhost:9292/reviews/${currentReview.id}`, {
+      method: fetchMethod,
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      },
+      body: JSON.stringify({
+        body: textarea,
+        rating: rating
+      })
     })
+    .then(r => r.json())
+    .then(data => onSubmit(data))
+
+    setRating(0.0)
+    setTextarea("")
   }
 
   return (
@@ -37,7 +45,7 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit }) 
           type="number"
           name="rating"
           id="rating"
-          step="0.5"
+          step="0.1"
           min="0"
           max="5"
           value={rating}
@@ -45,7 +53,10 @@ export default function AddEditReview({ currentReview, fetchMethod, onSubmit }) 
         />
         <label htmlFor="body">Review Body</label>
         <textarea id="body" name="body" value={textarea} rows="20" onChange={(e) => handleChange(e)}/>
-        <input type="submit" value="submit" />
+        <div className="form-action-buttons">
+          <input type="submit" value="Submit" />
+          <button className="cancel" onClick={onCancel}>Cancel</button>
+        </div>
       </form>
     </div>
   )

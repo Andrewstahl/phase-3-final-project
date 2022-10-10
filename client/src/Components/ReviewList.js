@@ -19,19 +19,18 @@ export default function Reviews() {
   }
   
   function handleEditSubmit(editedReview) {
-    // console.log("ReviewList.js I've Been Edited", editedReview.id)
     const updatedReviews = reviews.map(review => {
-      if (review.id == editedReview.id) {
+      if (review.id === editedReview.id) {
         return editedReview
       } else {
         return review
       }
     })
     setReviews(updatedReviews)
+    setShowEditReview(false)
   }
   
   function handleDelete(deletedReview) {
-    // console.log("ReviewList.js I've Been Deleted", deletedReview.id)
     const updatedReviews = reviews.filter(review => review.id != deletedReview.id)
     setReviews(updatedReviews)
   }
@@ -39,7 +38,12 @@ export default function Reviews() {
   const reviewElements = reviews.map(review => {
     return (
       <div>
-        <Review key={review.id} review={review} book={review.book} onEdit={() => handleEditClick(review)} onDelete={handleDelete}/>
+        <Review 
+          key={review.id} 
+          review={review} 
+          book={review.book} 
+          onEdit={handleEditClick} 
+          onDelete={handleDelete}/>
       </div>
     )
   })
@@ -47,13 +51,15 @@ export default function Reviews() {
   return (
     <>
       {showEditReview ?
-        <AddEditReview currentReview={currentReview} fetchMethod={"PATCH"} />
+        <AddEditReview 
+          currentReview={currentReview} 
+          fetchMethod={"PATCH"} 
+          onSubmit={handleEditSubmit}
+          onCancel={() => setShowEditReview(!showEditReview)} 
+        />
         :
         null
       }
-      {/* <div className="add-new-div">
-        <button className="add-new-button" onClick={() => setShowEditReview(!showEditReview)}>Add New Review</button>
-      </div> */}
       <div>
         {reviewElements}
       </div>
