@@ -23,6 +23,7 @@ import ReviewList from './ReviewList';
  *      └─── Book
  * ├─── Reviews
  *      ├─── Review
+ *           └─── Review Details
  *      ├─── Review
  *      └─── Review
  * └─── Authors
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/books/" element={<BookList />} />
         <Route exact path="/books/:id" element={<BookDetails />} />
         <Route exact path="/reviews/" element={<ReviewList />} />
+        <Route exact path="/reviews/:id" element={<ReviewList />} />
         <Route exact path="/authors/" element={<AuthorList />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
