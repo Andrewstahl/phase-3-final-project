@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Book from "./Book";
-import ActionButtons from "./ActionButtons";
-import NewReview from "./NewReview";
-import NewBook from "./NewBook";
+import AddEditReview from "./AddEditReview";
+import AddEditBook from "./AddEditBook";
 
 export default function BooksDetails() {
   const [book, setBook] = useState()
@@ -45,7 +44,6 @@ export default function BooksDetails() {
       <div className="review-on-book-details">
         <h4>Rating: {review.rating}</h4>
         <p>{review.body}</p>
-        {/* <ActionButtons onEdit={() => console.log("Details Edited")} onDelete={handleDeleteReview(review)}/> */}
         <div className="card-action-buttons">
           <button 
             className="card-action-button"
@@ -77,12 +75,12 @@ export default function BooksDetails() {
   return (
     <>
       {showNewReview ?
-        <NewReview />
+        <AddEditReview />
         :
         null
       }
       {showEditBook ?
-        <NewBook />
+        <AddEditBook />
         :
         null
       }
