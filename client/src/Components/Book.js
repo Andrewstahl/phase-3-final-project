@@ -39,7 +39,7 @@ export default function Book({ book, author, onUpdate, onDelete }) {
           })}
         </div>
       </div>
-      <ActionButtons onEdit={() => console.log("Book - Edited")} onDelete={() => console.log("Book - Deleted")}/>
+      {/* <ActionButtons onEdit={() => console.log("Book - Edited")} onDelete={() => console.log("Book - Deleted")}/> */}
     </div>
   )
 }

@@ -1,52 +1,32 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
-export default function NewBook() {
-  const [show, setShow] = useState(false);
+export default function NewReview({ onSubmit }) {
+  const params = useParams();
+  const [newBook, setNewBook] = useState({
+    title: "",
+    author: "",
+    read_status: "Unread",
+    finished_date: null,
+    imageUrl: "",
+    genres: ""
+  })
+  
+  function handleChange(e) {
+    
+  }
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  function handleSubmit(e) {
+    e.preventDefault();
+    
+  }
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
+    <div>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        
+      </form>
+    </div>
+  )
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
 }

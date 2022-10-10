@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Book from "./Book";
 import ActionButtons from "./ActionButtons";
+import NewReview from "./NewReview";
 
 export default function BooksDetails() {
   const [book, setBook] = useState()
-  const [editedBook, setEditedBook] = useState()
+  const [editedBook, setEditedBook] = useState({
+    // title: "",
+    // read_
+  })
   const [showNewReview, setShowNewReview] = useState(false)
   const params = useParams();
   
@@ -22,20 +26,8 @@ export default function BooksDetails() {
     .then(data => setBook(data))
   }, [params.id])
 
-  function handleChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setEditedBook({
-      ...editedBook,
-      [name]: value
-    })
-  }
-
-  // setEditedBook(book)
-
   function handleEditReview(editedReview) {
-    console.log("Book Details - I've Been Edited", editedReview.id)
+    console.log("Book Details - I've Been Edited", editedReview)
   }
   
   function handleDeleteReview(deletedReview) {
@@ -50,6 +42,7 @@ export default function BooksDetails() {
   
   const bookElement = <Book key={book.id} book={book}/>
   const reviewElements = book.reviews.map(review => {
+    const reviewId = review.id;
     return (
       <div className="review-on-book-details">
         <h4>Rating: {review.rating}</h4>
@@ -58,7 +51,7 @@ export default function BooksDetails() {
         <div className="card-action-buttons">
           <button 
             className="card-action-button"
-            onClick={() => handleEditReview(review)}
+            onClick={() => handleEditReview(reviewId)}
             >
             Edit
           </button>
@@ -76,23 +69,14 @@ export default function BooksDetails() {
   return (
     <>
       {showNewReview ?
-        <div>
-          <form>
-            <input
-              type="text"
-              name="title"
-              value={editedBook.title}
-              onChange={(e) => handleChange(e)}
-              placeholder={book.title}
-            >
-            </input>
-          </form>
-        </div>
+        <NewReview />
         :
         null
       }
       <div className="add-new-div">
         <button className="add-new-button" onClick={() => setShowNewReview(!showNewReview)}>Add New Review</button>
+        <button className="add-new-button" onClick={() => console.log("Edit Book", params.id)}>Edit Book Details</button>
+        <button className="add-new-button" onClick={() => console.log("Book Details - Delete Book")}>Delete Book</button>
       </div>
       <div className="book-list-elements-div">
         {bookElement}
