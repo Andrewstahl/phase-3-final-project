@@ -38,7 +38,15 @@ class ApplicationController < Sinatra::Base
   
   get "/reviews" do
     reviews = Review.all
-    reviews.to_json(include: {book: {only: [:title, :image_url]} })
+    reviews.to_json(
+      include: {
+        book: {
+          only: [
+            :title, :image_url
+          ]
+        }
+      }
+    )
   end
   
   get "/reviews/:id" do
@@ -56,12 +64,28 @@ class ApplicationController < Sinatra::Base
   
   get "/authors" do
     authors = Author.all
-    authors.to_json(include: {books: {only: [:title, :image_url]} })
+    authors.to_json(
+      include: {
+        books: {
+          only: [
+            :title, :image_url
+          ]
+        }
+      }
+    )
   end
   
   get "/authors/:id" do
     author = Author.find(params[:id])
-    author.to_json(include: {books: {only: [:title, :image_url]} })
+    author.to_json(
+      include: {
+        books: {
+          only: [
+            :title, :image_url
+          ]
+        }
+      }
+    )
   end
 
   # Post Requests
@@ -83,10 +107,10 @@ class ApplicationController < Sinatra::Base
   post '/reviews' do
     new_review = Review.create(
       body: params[:body],
-      book_title: Book.find_or_create_by(title: params[:book_title]),
+      book: Book.find_or_create_by(title: params[:book_title]),
       rating: params[:rating]
     )
-    new_book.to_json
+    new_review.to_json
   end
   
   post '/authors' do
