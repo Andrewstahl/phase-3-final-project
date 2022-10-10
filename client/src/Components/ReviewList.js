@@ -22,7 +22,7 @@ export default function Reviews() {
   const reviewElements = reviews.map(review => {
     return (
       <div>
-        <Review key={review.id} review={review} onEdit={handleEdit} onDelete={handleDelete}/>
+        <Review key={review.id} review={review} book={review.book} onEdit={handleEdit} onDelete={handleDelete}/>
       </div>
     )
   })

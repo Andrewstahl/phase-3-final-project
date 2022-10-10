@@ -1,15 +1,15 @@
 import React from "react";
 import ActionButtons from './ActionButtons'
 
-export default function Review({ review, onEdit, onDelete }) {
-  const {id, body, rating, book} = review
+export default function Review({ review, book, onEdit, onDelete }) {
+  const {id, body, rating} = review
 
   function handleEdit() {
     
   }
   
   function handleDelete() {
-    console.log("I'm being deleted", id)
+    console.log("Review.js I'm being deleted", id)
     // fetch(`http://localhost:9292/reviews/${id}`, {
     //   method: "DELETE", 
     //   headers: {
@@ -23,8 +23,11 @@ export default function Review({ review, onEdit, onDelete }) {
 
   return (
     <div className="review-on-book-details">
-      <h4>{book.title}</h4>
-      <span>Rating: {rating}</span>
+      {book != null 
+        ? <h4 className="review-book-title">{book.title}</h4>
+        : null
+      }
+      <span className="review-rating">Rating: {rating}</span>
       <p>{body}</p>
       <ActionButtons onEdit={handleEdit} onDelete={handleDelete}/>
     </div>
