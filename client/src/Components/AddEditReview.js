@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function AddEditReview({ currentReview, currentBook, fetchMethod, onSubmit, onCancel }) {
-  const [rating, setRating] = useState(() => {
+  const [reviewRating, setRating] = useState(() => {
     return currentReview !== undefined ? currentReview.rating : 0.0
   })
   const [textarea, setTextarea] = useState(() => {
@@ -20,30 +20,28 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
 
   function handleSubmit(e) {
     e.preventDefault();
+
     let fetchUrl;
     if (currentReview !== undefined) {
       fetchUrl = `http://localhost:9292/reviews/${currentReview.id}`
     } else {
       fetchUrl = `http://localhost:9292/reviews`
     }
-    // console.log(currentBook.title)
-    // console.log(fetchUrl, fetchMethod, {book_title: currentBook.title, body: textarea, rating: rating})
+    
     fetch(fetchUrl, {
       method: fetchMethod,
       headers: {
         "CONTENT-TYPE": "application/json"
       },
       body: JSON.stringify({
-        book_title: currentBook.title,
+        book_title: currentBook.title || currentReview.book.title,
         body: textarea,
-        rating: rating
+        rating: reviewRating
       })
     })
     .then(r => r.json())
     .then(data => onSubmit(data))
-
-    // setRating(0.0)
-    // setTextarea("")
+    // .then(data => console.log("AddEditReview", fetchMethod, data))
   }
 
   return (
@@ -57,7 +55,7 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
           step="0.1"
           min="0"
           max="5"
-          value={rating}
+          value={reviewRating}
           onChange={(e) => handleChange(e)}
           required
         />
