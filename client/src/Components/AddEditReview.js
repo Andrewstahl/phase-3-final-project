@@ -19,7 +19,7 @@ export default function AddEditReview({ onSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log({
+    console.log("AddEditReview", {
       book_id: parseInt(params.id),
       body: textarea,
       rating: rating
