@@ -4,7 +4,6 @@ import { useParams, redirect } from "react-router-dom";
 
 export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
   const params = useParams();
-  // console.log(author)
   const [bookData, setBookData] = useState(() => {
     if (currentBook !== undefined)  {
       return ({
@@ -35,17 +34,19 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
       ...bookData,
       [name]: value
     })
-    
   }
-
+  
   function handleSelect(e) {
     e.preventDefault();
+    const selectedOption = e.target.options[e.target.selectedIndex].text
+    const finishedDate = selectedOption === "unread" ? null : bookData.finished_date
     setBookData({
       ...bookData,
-      read_status: e.target.options[e.target.selectedIndex].text
+      read_status: selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1),
+      finished_date: finishedDate
     })
   }
-
+  
   function handleSubmit(e) {
     e.preventDefault();
     const genresSplit = bookData.genres.replace(", ", ",").split(",")
@@ -58,9 +59,9 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
       },
       body: JSON.stringify({...bookData, genres: genresSplit})
     })
-      .then(r => r.json())
-      .then(data => onSubmit(data))
-
+    .then(r => r.json())
+    .then(data => onSubmit(data))
+    
     setBookData({
       title: "",
       author: "",
@@ -70,7 +71,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
       genres: ""
     })
   }
-
+  
   return (
     <div className="form-container">
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -91,11 +92,11 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit }) {
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="read_status">Read Status</label>
-        <select name="read_status" id="read_status" value={bookData.read_status} onChange={(e) => handleSelect(e)}>
+        <select name="read_status" id="read_status" value={bookData.read_status.toLowerCase()} onChange={(e) => handleSelect(e)}>
           <option value="unread">Unread</option>
           <option value="read">Read</option>
         </select>
-        {bookData.read_status === "Read"
+        {bookData.read_status.toLowerCase() === "read"
           ? (
             <>
               <label htmlFor="finished_date">Finished Date</label>
