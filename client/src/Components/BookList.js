@@ -22,23 +22,19 @@ export default function BookList() {
   })
 
   function handleAddBook(addedBook) {
-    fetch(`http://localhost:9292/books`, {
-      method: "POST",
-      headers: {
-        "CONTENT-TYPE": "application/json"
-      },
-      body: JSON.stringify(addedBook)
-    })
-    .then(r => r.json())
-    .then(data => console.log(data))
-
-    redirect("/books")
+    setBooks([...books, addedBook])
+    setShowAddBook(false)
   }
   
   return (
     <>
       {showAddBook ?
-        <AddEditBook currentBook={undefined} fetchMethod={"POST"} />
+        <AddEditBook 
+          currentBook={undefined} 
+          fetchMethod={"POST"} 
+          onSubmit={handleAddBook} 
+          onCancel={() => setShowAddBook(!showAddBook)} 
+        />
         :
         null
       }
