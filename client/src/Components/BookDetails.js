@@ -3,14 +3,12 @@ import { useParams } from "react-router-dom";
 import Book from "./Book";
 import ActionButtons from "./ActionButtons";
 import NewReview from "./NewReview";
+import NewBook from "./NewBook";
 
 export default function BooksDetails() {
   const [book, setBook] = useState()
-  const [editedBook, setEditedBook] = useState({
-    // title: "",
-    // read_
-  })
   const [showNewReview, setShowNewReview] = useState(false)
+  const [showEditBook, setShowEditBook] = useState(false)
   const params = useParams();
   
   useEffect(() => {
@@ -66,6 +64,16 @@ export default function BooksDetails() {
     )
   })
 
+  function AddReview() {
+    setShowNewReview(!showNewReview)
+    setShowEditBook(false)
+  }
+
+  function EditBook() {
+    setShowNewReview(false)
+    setShowEditBook(!showEditBook)
+  }
+
   return (
     <>
       {showNewReview ?
@@ -73,9 +81,14 @@ export default function BooksDetails() {
         :
         null
       }
+      {showEditBook ?
+        <NewBook />
+        :
+        null
+      }
       <div className="add-new-div">
-        <button className="add-new-button" onClick={() => setShowNewReview(!showNewReview)}>Add New Review</button>
-        <button className="add-new-button" onClick={() => console.log("Edit Book", params.id)}>Edit Book Details</button>
+        <button className="add-new-button" onClick={() => AddReview()}>Add New Review</button>
+        <button className="add-new-button" onClick={() => EditBook()}>Edit Book Details</button>
         <button className="add-new-button" onClick={() => console.log("Book Details - Delete Book")}>Delete Book</button>
       </div>
       <div className="book-list-elements-div">
