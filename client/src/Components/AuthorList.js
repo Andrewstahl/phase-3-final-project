@@ -43,6 +43,21 @@ export default function AuthorList() {
       setAuthors(updatedAuthors)
     })
   }
+
+  function deleteEmptyAuthors() {
+    fetch(`http://localhost:9292/authors/empty-books`, {
+      method: "DELETE",
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      const deletedAuthorIds = data.map(author => author.id)
+      const updatedAuthors = authors.filter(author => !deletedAuthorIds.includes(author.id))
+      setAuthors(updatedAuthors)
+    })
+  }
   
   const authorElements = authors.map(author => {
     return (
@@ -68,6 +83,9 @@ export default function AuthorList() {
           />
         : null
       }
+      <div className="add-edit-button-div">
+        <button className="add-edit-button" onClick={deleteEmptyAuthors}>Delete Authors with No Books</button>
+      </div>
       <div>
         {authorElements}
       </div>
