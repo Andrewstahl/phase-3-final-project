@@ -31,8 +31,17 @@ export default function ReviewList() {
   }
   
   function handleDelete(deletedReview) {
-    const updatedReviews = reviews.filter(review => review.id != deletedReview.id)
-    setReviews(updatedReviews)
+    fetch(`http://localhost:9292/reviews/${deletedReview.id}`, {
+      method: "DELETE",
+      headers: {
+        "CONTENT-TYPE": "application/json"
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      const updatedReviews = reviews.filter(review => review.id != deletedReview.id)
+      setReviews(updatedReviews)
+    })
   }
 
   const reviewElements = reviews.map(review => {
@@ -43,23 +52,23 @@ export default function ReviewList() {
           review={review} 
           book={review.book} 
           onEdit={handleEditClick} 
-          onDelete={handleDelete}/>
+          onDelete={handleDelete}
+        />
       </div>
     )
   })
   
   return (
     <>
-      {showEditReview ?
-        <AddEditReview 
-          currentReview={currentReview}
-          currentBook={currentReview.book}
-          fetchMethod={"PATCH"} 
-          onSubmit={handleEditSubmit}
-          onCancel={() => setShowEditReview(!showEditReview)} 
-        />
-        :
-        null
+      {showEditReview 
+        ? <AddEditReview 
+            currentReview={currentReview}
+            currentBook={currentReview.book}
+            fetchMethod={"PATCH"} 
+            onSubmit={handleEditSubmit}
+            onCancel={() => setShowEditReview(!showEditReview)} 
+          />
+        : null
       }
       <div>
         {reviewElements}
