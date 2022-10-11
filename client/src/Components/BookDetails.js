@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, redirect } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Book from "./Book";
 import Review from "./Review";
 import AddEditReview from "./AddEditReview";
@@ -13,6 +13,7 @@ export default function BooksDetails( onDelete ) {
   const [showNewReview, setShowNewReview] = useState(false)
   const [showEditBook, setShowEditBook] = useState(false)
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:9292/books/${params.id}`)
@@ -80,15 +81,9 @@ export default function BooksDetails( onDelete ) {
       }
     })
     .then(r => r.json())
-    .then(data => null)
-
-    redirect("/books")
-  }
-
-  if (book == null) {
-    return <h3>Loading Book Details...</h3>
-  } else if (book === "Not Found") {
-    return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
+    .then(data => {
+      navigate("/books")
+    })
   }
   
   function ToggleEditReview(reviewOption) {
@@ -105,6 +100,12 @@ export default function BooksDetails( onDelete ) {
     setShowEditBook(!showEditBook)
   }
 
+  if (book == null) {
+    return <h3>Loading Book Details...</h3>
+  } else if (book === "Not Found") {
+    return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
+  }
+
   const bookElement = <Book key={book.id} book={book} author={book.author}/>
   
   const reviewElements = bookReviews.map(review => {
@@ -114,26 +115,24 @@ export default function BooksDetails( onDelete ) {
   
   return (
     <>
-      {showNewReview ?
-        <AddEditReview 
-          currentReview={currentReview}
-          currentBook={book}
-          fetchMethod={fetchMethod} 
-          onSubmit={handleEditReviewSubmit}
-          onCancel={() => setShowNewReview(false)}
-        />
-        :
-        null
+      {showNewReview 
+        ? <AddEditReview 
+            currentReview={currentReview}
+            currentBook={book}
+            fetchMethod={fetchMethod} 
+            onSubmit={handleEditReviewSubmit}
+            onCancel={() => setShowNewReview(false)}
+          />
+        : null
       }
-      {showEditBook ?
-        <AddEditBook 
-          currentBook={book} 
-          fetchMethod={"PATCH"} 
-          onSubmit={handleEditBookClick} 
-          onCancel={() => setShowEditBook(false)}
-        />
-        :
-        null
+      {showEditBook 
+        ? <AddEditBook 
+            currentBook={book} 
+            fetchMethod={"PATCH"} 
+            onSubmit={handleEditBookClick} 
+            onCancel={() => setShowEditBook(false)}
+          />
+        : null
       }
       <div className="add-new-div">
         <button className="add-new-button" onClick={() => ToggleEditReview("new")}>Add New Review</button>
