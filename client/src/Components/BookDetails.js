@@ -34,13 +34,13 @@ export default function BooksDetails( onDelete ) {
   function handleEditReviewClick(editedReview) {
     SetCurrentReview(editedReview)
     setFetchMethod("PATCH")
-    ToggleEditReview()
+    ToggleEditReview("current")
   }
   
   function handleEditReviewSubmit(editedReview) {
     if (fetchMethod === "PATCH") {
       const updatedReviews = bookReviews.map(review => {
-        if (review.id == editedReview.id) {
+        if (review.id === editedReview.id) {
           return editedReview
         } else {
           return review
