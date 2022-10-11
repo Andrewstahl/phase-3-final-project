@@ -60,7 +60,7 @@ export default function BooksDetails( onDelete ) {
       }
     })
     .then(r => r.json())
-    .then(data => console.log(data))
+    .then(data => null)
 
     const updatedReviews = bookReviews.filter(review => review.id !== deletedReview.id)
     setBookReviews(updatedReviews)
