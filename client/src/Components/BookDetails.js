@@ -5,7 +5,7 @@ import Review from "./Review";
 import AddEditReview from "./AddEditReview";
 import AddEditBook from "./AddEditBook";
 
-export default function BooksDetails( onDelete ) {
+export default function BooksDetails() {
   const [book, setBook] = useState()
   const [bookReviews, setBookReviews] = useState()
   const [currentReview, SetCurrentReview] = useState();
@@ -105,7 +105,7 @@ export default function BooksDetails( onDelete ) {
   } else if (book === "Not Found") {
     return <h3>Book data not found. Try searching for a different book or add a new one.</h3>
   }
-
+  
   const bookElement = <Book key={book.id} book={book} author={book.author}/>
   
   const reviewElements = bookReviews.map(review => {
