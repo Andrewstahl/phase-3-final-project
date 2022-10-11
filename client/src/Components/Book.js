@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Book({ book, author }) {
@@ -22,10 +22,8 @@ export default function Book({ book, author }) {
       <div className="book-card-details">
         <h3 className="book-card-title">{title}</h3>
         {author != null 
-          ? 
-            <h4 className="book-card-author">{author.name}</h4>
-          :
-            null
+          ? <h4 className="book-card-author">{author.name}</h4>
+          : null
         }
         <p>Read Status: {read_status}</p>
         {finished_date !== null 

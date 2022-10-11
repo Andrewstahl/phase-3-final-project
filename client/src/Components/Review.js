@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Review({ review, book, onEdit, onDelete }) {
-  const {id, body, rating} = review
+  const {body, rating} = review
 
   return (
     <div className="review-on-book-details">
@@ -15,8 +15,7 @@ export default function Review({ review, book, onEdit, onDelete }) {
         <button className="card-action-button" onClick={() => onEdit(review)}>
           Edit
         </button>
-        <button className="card-action-button" onClick={() => onDelete(review)}
-        >
+        <button className="card-action-button" onClick={() => onDelete(review)}>
           Delete
         </button>
       </div>
