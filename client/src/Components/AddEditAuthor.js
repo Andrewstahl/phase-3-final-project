@@ -57,5 +57,4 @@ export default function AddEditAuthor({ currentAuthor, fetchMethod, onSubmit, on
       </form>
     </div>
   )
-
 }

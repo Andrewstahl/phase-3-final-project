@@ -26,6 +26,7 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
     e.preventDefault();
 
     let fetchUrl;
+    
     if (currentReview !== undefined) {
       fetchUrl = `http://localhost:9292/reviews/${currentReview.id}`
     } else {

@@ -39,8 +39,10 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
   
   function handleSelect(e) {
     e.preventDefault();
+    
     const selectedOption = e.target.options[e.target.selectedIndex].text
     const finishedDate = selectedOption === "unread" ? null : bookData.finished_date
+    
     setBookData({
       ...bookData,
       read_status: selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1),
@@ -50,9 +52,11 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
   
   function handleSubmit(e) {
     e.preventDefault();
+    
     const genresSplit = bookData.genres.replace(", ", ",").split(",")
-    console.log(bookData)
+    
     let fetchUrl;
+    
     if (currentBook !== undefined) {
       fetchUrl = `http://localhost:9292/books/${currentBook.id}`
     } else {
@@ -91,13 +95,17 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="read_status">Read Status</label>
-        <select name="read_status" id="read_status" value={bookData.read_status.toLowerCase()} onChange={(e) => handleSelect(e)}>
+        <select 
+          name="read_status" 
+          id="read_status" 
+          value={bookData.read_status.toLowerCase()} 
+          onChange={(e) => handleSelect(e)}
+        >
           <option value="unread">Unread</option>
           <option value="read">Read</option>
         </select>
         {bookData.read_status.toLowerCase() === "read"
-          ? (
-            <>
+          ? (<>
               <label htmlFor="finished_date">Finished Date</label>
               <input
                 type="date"
@@ -107,8 +115,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
                 max={new Date().toJSON().slice(0, 10)}
                 onChange={(e) => handleChange(e)}
               />
-            </>
-          )
+            </>)
           : null
         }
         <label htmlFor="image_url">Image URL</label>
@@ -134,5 +141,4 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
       </form>
     </div>
   )
-
 }
