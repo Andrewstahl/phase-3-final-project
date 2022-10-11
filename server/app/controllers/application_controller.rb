@@ -35,7 +35,7 @@ class ApplicationController < Sinatra::Base
       include: {
         book: {
           only: [
-            :title, :image_url
+            :id, :title, :image_url
           ]
         }
       }
