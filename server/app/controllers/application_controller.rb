@@ -64,6 +64,11 @@ class ApplicationController < Sinatra::Base
       }
     )
   end
+
+  get "/authors/empty-books" do
+    empty_authors = Author.empty_books
+    empty_authors.to_json
+  end
   
   get "/authors/:id" do
     author = Author.find(params[:id])
@@ -179,10 +184,19 @@ class ApplicationController < Sinatra::Base
     review.to_json
   end
   
+  delete '/authors/empty-books' do
+    empty_authors = Author.empty_books
+    empty_authors.each do |author|
+      author.destroy
+    end
+    empty_authors.to_json
+  end
+
   delete '/authors/:id' do
     author = Author.find(params[:id])
     author.destroy
     author.to_json
   end
+
 
 end
