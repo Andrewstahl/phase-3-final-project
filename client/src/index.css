@@ -25,7 +25,6 @@ h1 {
 span {
   display: inline-block;
   margin: 15px 0px 0px;
-  font-style: italic;
 }
 
 .review-book-title {
@@ -90,6 +89,7 @@ div.home-page-div {
   color: white;
   font-weight: bold;
   border-radius: 5px;
+  font-style: italic;
 }
 
 .card-action-buttons {
