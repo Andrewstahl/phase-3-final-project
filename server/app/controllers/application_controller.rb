@@ -19,13 +19,6 @@ class ApplicationController < Sinatra::Base
   get "/books/:id" do
     book = Book.find(params[:id])
     book.to_json(
-      # include: {
-      #   author: {
-      #     only: [
-      #       :name
-      #     ]
-      #   }
-      # }
       include: {
         reviews: {
           only: [
@@ -155,7 +148,15 @@ class ApplicationController < Sinatra::Base
     author.update(
       name: params[:name]
     )
-    author.to_json
+    author.to_json(
+      include: {
+        books: {
+          only: [
+            :title, :image_url
+          ]
+        }
+      }
+    )
   end
 
   # Delete
