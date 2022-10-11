@@ -131,14 +131,23 @@ class ApplicationController < Sinatra::Base
     )
     book.to_json
   end
-
+  
   patch '/reviews/:id' do
     review = Review.find(params[:id])
     review.update(
+      book: Book.find_or_create_by(title: params[:book_title]),
       body: params[:body],
       rating: params[:rating]
     )
-    review.to_json
+    review.to_json(
+      include: {
+        book: {
+          only: [
+            :title
+          ]
+        }
+      }
+    )
   end
 
   patch '/authors/:id' do
