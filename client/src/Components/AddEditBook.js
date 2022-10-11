@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCancel }) {
   const [bookData, setBookData] = useState(() => {
@@ -22,6 +22,10 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
       })
     }
   })
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   
   function handleChange(e) {
     const name = e.target.name;
