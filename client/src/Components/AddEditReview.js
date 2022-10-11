@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function AddEditReview({ currentReview, currentBook, fetchMethod, onSubmit, onCancel }) {
   const [rating, setRating] = useState(() => {
@@ -7,6 +7,10 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
   const [textarea, setTextarea] = useState(() => {
     return currentReview !== undefined ? currentReview.body : ""
   })
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   function handleChange(e) {
     const name = e.target.name;
@@ -41,7 +45,6 @@ export default function AddEditReview({ currentReview, currentBook, fetchMethod,
     })
     .then(r => r.json())
     .then(data => onSubmit(data))
-    // .then(data => console.log("AddEditReview", fetchMethod, data))
   }
 
   return (
