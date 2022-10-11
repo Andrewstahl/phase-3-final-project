@@ -38,8 +38,8 @@ export default function BookList() {
         :
         null
       }
-      <div className="add-new-div">
-        <button className="add-new-button" onClick={() => setShowAddBook(!showAddBook)}>Add New Book</button>
+      <div className="add-edit-button-div">
+        <button className="add-edit-button" onClick={() => setShowAddBook(!showAddBook)}>Add New Book</button>
       </div>
       <div className="book-list-elements-div">
         {bookElements}

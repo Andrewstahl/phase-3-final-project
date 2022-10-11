@@ -134,10 +134,10 @@ export default function BooksDetails() {
           />
         : null
       }
-      <div className="add-new-div">
-        <button className="add-new-button" onClick={() => ToggleEditReview("new")}>Add New Review</button>
-        <button className="add-new-button" onClick={() => ToggleEditBook()}>Edit Book Details</button>
-        <button className="add-new-button" onClick={() => handleDeleteBook()}>Delete Book</button>
+      <div className="add-edit-button-div">
+        <button className="add-edit-button" onClick={() => ToggleEditReview("new")}>Add New Review</button>
+        <button className="add-edit-button" onClick={() => ToggleEditBook()}>Edit Book Details</button>
+        <button className="add-edit-button" onClick={() => handleDeleteBook()}>Delete Book</button>
       </div>
       <div className="book-list-elements-div">
         {bookElement}
