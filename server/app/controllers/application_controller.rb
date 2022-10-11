@@ -91,7 +91,12 @@ class ApplicationController < Sinatra::Base
     new_book.update(
       genres: params[:genres] || []
     )
-    new_book.to_json
+    new_book.to_json(
+      include: [
+        reviews: {only: [:id, :body, :rating]},
+        author: {only: [:name]}
+      ]
+    )
   end
   
   post '/reviews' do
@@ -119,7 +124,12 @@ class ApplicationController < Sinatra::Base
       genres: params[:genres] || book.genres,
       author: Author.find_or_create_by(name: params[:author])
     )
-    book.to_json
+    book.to_json(
+      include: [
+        reviews: {only: [:id, :body, :rating]},
+        author: {only: [:name]}
+      ]
+    )
   end
   
   patch '/reviews/:id' do
