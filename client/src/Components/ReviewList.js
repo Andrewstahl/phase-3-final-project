@@ -15,21 +15,19 @@ export default function ReviewList() {
 
   function handleEditClick(review) {
     setCurrentReview(review)
-    console.log(review)
     setShowEditReview(!showEditReview)
   }
   
   function handleEditSubmit(editedReview) {
-    console.log(editedReview)
-    // const updatedReviews = reviews.map(review => {
-    //   if (review.id === editedReview.id) {
-    //     return editedReview
-    //   } else {
-    //     return review
-    //   }
-    // })
-    // setReviews(updatedReviews)
-    // setShowEditReview(false)
+    const updatedReviews = reviews.map(review => {
+      if (review.id === editedReview.id) {
+        return editedReview
+      } else {
+        return review
+      }
+    })
+    setReviews(updatedReviews)
+    setShowEditReview(false)
   }
   
   function handleDelete(deletedReview) {
