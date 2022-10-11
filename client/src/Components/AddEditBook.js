@@ -5,7 +5,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
     if (currentBook !== undefined)  {
       return ({
         title: currentBook.title,
-        author: "",
+        author: currentBook.author.name,
         read_status: currentBook.read_status.toLowerCase(),
         finished_date: currentBook.finished_date,
         image_url: currentBook.image_url,
