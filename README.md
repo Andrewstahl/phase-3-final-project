@@ -14,7 +14,8 @@ Before you begin, you will need to install dependencies and run individual serve
 ## Project Overview
 This site provides sample data for book/review tracking. This leverages a homegrown API utilizing Ruby, ActiveRecord, and Sinatra with separate but connected databases for books, reviews, and authors.  Leveraging React, the client-side also uses different links that render data pertinent to what the user wants to see.
 
-![](https://github.com/Andrewstahl/phase-2-final-project/blob/main/media/Stahl%20Stock%20Tracker.gif)
+Check out this gif for a quick walkthrough of the final project:
+![](https://github.com/Andrewstahl/phase-3-final-project/blob/main/media/Flatiron%20Phase%203%20-%20Book%20Tracker%20Walkthrough.gif)
 
 ## Database Migration Structure
 Here is a quick visual for the database structure.
