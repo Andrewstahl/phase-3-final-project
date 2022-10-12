@@ -85,6 +85,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           id="title"
           value={bookData.title}
           onChange={(e) => handleChange(e)}
+          required
         />
         <label htmlFor="author">Author</label>
         <input
@@ -93,6 +94,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           id="author"
           value={bookData.author}
           onChange={(e) => handleChange(e)}
+          required
         />
         <label htmlFor="read_status">Read Status</label>
         <select 
@@ -100,6 +102,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           id="read_status" 
           value={bookData.read_status.toLowerCase()} 
           onChange={(e) => handleSelect(e)}
+          required
         >
           <option value="unread">Unread</option>
           <option value="read">Read</option>
@@ -125,6 +128,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           id="image_url"
           value={bookData.image_url}
           onChange={(e) => handleChange(e)}
+          required
         />
         <label htmlFor="genres">Genres (separate by commas)</label>
         <input
@@ -133,6 +137,7 @@ export default function AddEditBook({ currentBook, fetchMethod, onSubmit, onCanc
           id="genres"
           value={bookData.genres}
           onChange={(e) => handleChange(e)}
+          required
         />
         <div className="form-action-buttons">
           <input type="submit" value="Submit" />
