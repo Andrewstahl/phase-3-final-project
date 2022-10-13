@@ -46,6 +46,13 @@ Here's a quick outline of the responsibilities for this project:
 - On the **Review** page, the user should have the ability to see each review along with basic details and options for edit/delete
 - On the **Author** page, the user should have the ability to see each author along with basic details and options for edit/delete
 
+## Future Development
+This is just built for a single user at this stage, but it would be cool to include login functionality for multiple users to come in and see their books. Maybe they can see all books that are being added to the database and the different users that left reviews on books to make it more of a social network.
+
+## Resources
+- [Flatiron starter code for Sinatra server repository](https://github.com/learn-co-curriculum/phase-3-sinatra-react-project)
+- [Create-React-App for starter client repository](https://github.com/facebook/create-react-app)
+
 ## Additional Posts
-- [YouTube walkthrough of the project](https://youtu.be/S_coqhNVLxM)
-- [Medium blog post about React Router crash course](https://medium.com/@andrewstahl96/react-router-dom-crash-course-9e61f4bfaaec)
+- [YouTube walkthrough of the project](https://youtu.be/X9J78frWORc)
+- [Medium blog post about creating your own API with Active Record and Sinatra](https://medium.com/@andrewstahl96/creating-your-own-back-end-and-api-with-ruby-part-1-migrations-with-active-record-161deb9a2b6f)
