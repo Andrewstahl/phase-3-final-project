@@ -55,4 +55,4 @@ This is just built for a single user at this stage, but it would be cool to incl
 
 ## Additional Posts
 - [YouTube walkthrough of the project](https://youtu.be/X9J78frWORc)
-- [Medium blog post about creating your own API with Active Record and Sinatra](https://medium.com/@andrewstahl96/creating-your-own-back-end-and-api-with-ruby-part-1-migrations-with-active-record-161deb9a2b6f)
+- [Medium blog post about creating your own API with Active Record and Sinatra](https://medium.com/@andrewstahlsoftware/creating-your-own-back-end-and-api-with-ruby-part-1-migrations-with-active-record-161deb9a2b6f)
